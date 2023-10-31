@@ -1,5 +1,10 @@
 package GOCFMXCompat
 
+import (
+	"encoding/hex"
+	"strings"
+)
+
 type CFmxCompat struct {
 	m_Key    string
 	m_LFSR_A int
@@ -37,6 +42,12 @@ func NewCFmxCompat(key string) *CFmxCompat {
 	instance.setKey(key)
 
 	return instance
+}
+
+func (cc *CFmxCompat) Encrypt(input string) (output string) {
+	out := cc.TransformString([]byte(input))
+	output = hex.EncodeToString(out[:])
+	return strings.ToUpper(output)
 }
 
 func (cc *CFmxCompat) TransformString(inBytes []byte) []byte {
