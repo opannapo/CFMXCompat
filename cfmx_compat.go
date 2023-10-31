@@ -1,4 +1,4 @@
-package GOCFMXCompat
+package gocfmx
 
 import (
 	"encoding/hex"

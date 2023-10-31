@@ -1,7 +1,7 @@
-package GOCFMXCompat_test
+package gocfmx_test
 
 import (
-	GOCFMXCompat "gocfmx"
+	"gocfmx"
 	"testing"
 )
 
@@ -48,17 +48,17 @@ func TestEncrypt(t *testing.T) {
 			wantOutput: "4D808A8D88A84E834D39AE46BD1A23A64B",
 		},
 		{
-			name: "Success short key",
+			name: "Success short key 2",
 			args: args{
-				input: "testTestTestteESt test TeESsst",
+				input: "Coba Cooba testTestTestteESt test TeESsst",
 				key:   "abc",
 			},
-			wantOutput: "55BC8A4F2AD88593079CBF9B18AA321A9A8CD2BC60AEC4E9AE786E4C148B",
+			wantOutput: "62B69B5A5EFE99883198EC9B09BC031D8BDFD28D76A990C9AE786E4B478B59C0474EA7DBAAA59C2C10",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cfMx := GOCFMXCompat.NewCFmxCompat(tt.args.key)
+			cfMx := gocfmx.NewCFmxCompat(tt.args.key)
 			gotOutput := cfMx.Encrypt(tt.args.input)
 			if gotOutput != tt.wantOutput {
 				t.Errorf("EncryptDecrypt() = %v, want %v", gotOutput, tt.wantOutput)
