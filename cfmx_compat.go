@@ -45,12 +45,12 @@ func NewCFmxCompat(key string) *CFmxCompat {
 }
 
 func (cc *CFmxCompat) Encrypt(input string) (output string) {
-	out := cc.TransformString([]byte(input))
+	out := cc.transformString([]byte(input))
 	output = hex.EncodeToString(out[:])
 	return strings.ToUpper(output)
 }
 
-func (cc *CFmxCompat) TransformString(inBytes []byte) []byte {
+func (cc *CFmxCompat) transformString(inBytes []byte) []byte {
 	length := len(inBytes)
 	outBytes := make([]byte, length)
 	for i := 0; i < length; i++ {
@@ -98,7 +98,11 @@ func (cc *CFmxCompat) setKey(key string) {
 		key = "Default Seed"
 	}
 
-	Seed := make([]int, len(key))
+	seedLen := len(key)
+	if seedLen < 12 {
+		seedLen = 12
+	}
+	Seed := make([]int, seedLen)
 	for i, char := range key {
 		Seed[i] = int(char)
 	}
