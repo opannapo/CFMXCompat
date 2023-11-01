@@ -21,7 +21,7 @@ func TestEncrypt(t *testing.T) {
 				input: "abcd",
 				key:   "1234567891234567",
 			},
-			wantOutput: "6D05AFBA",
+			wantOutput: "6d05afba",
 		},
 		{
 			name: "Success 2",
@@ -29,7 +29,7 @@ func TestEncrypt(t *testing.T) {
 				input: "plain value",
 				key:   "testKey1234$",
 			},
-			wantOutput: "4D51945A59CDBF92A28F9E",
+			wantOutput: "4d51945a59cdbf92a28f9e",
 		},
 		{
 			name: "Success 3",
@@ -37,7 +37,7 @@ func TestEncrypt(t *testing.T) {
 				input: "testTestTestteESt",
 				key:   "Re3trOoO123!",
 			},
-			wantOutput: "6D52CA231B4E0E936A89BCAFC79ED2359B",
+			wantOutput: "6d52ca231b4e0e936a89bcafc79ed2359b",
 		},
 		{
 			name: "Success short key",
@@ -45,7 +45,7 @@ func TestEncrypt(t *testing.T) {
 				input: "testTestTestteESt",
 				key:   "Re3trO",
 			},
-			wantOutput: "4D808A8D88A84E834D39AE46BD1A23A64B",
+			wantOutput: "4d808a8d88a84e834d39ae46bd1a23a64b",
 		},
 		{
 			name: "Success short key 2",
@@ -53,13 +53,13 @@ func TestEncrypt(t *testing.T) {
 				input: "Coba Cooba testTestTestteESt test TeESsst",
 				key:   "abc",
 			},
-			wantOutput: "62B69B5A5EFE99883198EC9B09BC031D8BDFD28D76A990C9AE786E4B478B59C0474EA7DBAAA59C2C10",
+			wantOutput: "62b69b5a5efe99883198ec9b09bc031d8bdfd28d76a990c9ae786e4b478b59c0474ea7dbaaa59c2c10",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cfMx := gocfmx.NewCFmxCompat(tt.args.key)
-			gotOutput := cfMx.Encrypt(tt.args.input)
+			gotOutput := cfMx.EncryptToHex(tt.args.input)
 			if gotOutput != tt.wantOutput {
 				t.Errorf("EncryptDecrypt() = %v, want %v", gotOutput, tt.wantOutput)
 			}
