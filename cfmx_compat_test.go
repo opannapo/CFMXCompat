@@ -1,7 +1,7 @@
 package gocfmx_test
 
 import (
-	"gocfmx"
+	"github.com/opannapo/gocfmx"
 	"testing"
 )
 
