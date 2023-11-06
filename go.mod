@@ -1,3 +1,3 @@
 module github.com/opannapo/gocfmx
 
-go 1.21.1
+go 1.16
