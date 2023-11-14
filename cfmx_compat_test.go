@@ -59,7 +59,53 @@ func TestEncrypt(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			cfMx := gocfmx.NewCFmxCompat(tt.args.key)
-			gotOutput := cfMx.EncryptToHex(tt.args.input)
+			gotOutput := cfMx.EncryptEncodingHex(tt.args.input)
+			if gotOutput != tt.wantOutput {
+				t.Errorf("EncryptDecrypt() = %v, want %v", gotOutput, tt.wantOutput)
+			}
+		})
+	}
+}
+
+func TestDecrypt(t *testing.T) {
+	type args struct {
+		input string
+		key   string
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantOutput string
+	}{
+		{
+			name: "Success",
+			args: args{
+				input: "6d05afba",
+				key:   "1234567891234567",
+			},
+			wantOutput: "abcd",
+		},
+		{
+			name: "Success 2",
+			args: args{
+				input: "42468ea0889c5b14b2581587d4809e4575b09fa8858d34939a4192da5cb6eb52aee7a2e65af60de38ff6b0",
+				key:   "iniKey",
+			},
+			wantOutput: "opannapo-opannapo-test-test-o-p-a-n-n-a-p-o",
+		},
+		{
+			name: "Success 3",
+			args: args{
+				input: "42468EA0889C5B14B2581587D4809E4575B09FA8858D34939A4192DA5CB6EB52AEE7A2E65AF60DE38FF6B0",
+				key:   "iniKey",
+			},
+			wantOutput: "opannapo-opannapo-test-test-o-p-a-n-n-a-p-o",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			cfMx := gocfmx.NewCFmxCompat(tt.args.key)
+			gotOutput, _ := cfMx.DecryptEncodingHex(tt.args.input)
 			if gotOutput != tt.wantOutput {
 				t.Errorf("EncryptDecrypt() = %v, want %v", gotOutput, tt.wantOutput)
 			}
