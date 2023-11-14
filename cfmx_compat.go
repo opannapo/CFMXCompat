@@ -2,6 +2,7 @@ package gocfmx
 
 import (
 	"encoding/hex"
+	"fmt"
 )
 
 type CFmxCompat struct {
@@ -43,10 +44,21 @@ func NewCFmxCompat(key string) *CFmxCompat {
 	return instance
 }
 
-func (cc *CFmxCompat) EncryptToHex(input string) (output string) {
+func (cc *CFmxCompat) EncryptEncodingHex(input string) (output string) {
 	out := cc.transformString([]byte(input))
 	output = hex.EncodeToString(out[:])
 	return output
+}
+
+func (cc *CFmxCompat) DecryptEncodingHex(input string) (output string, err error) {
+	data, err := hex.DecodeString(input)
+	if err != nil {
+		fmt.Printf("Decrypt Hex.DecodeString error %+v \n", err)
+		return
+	}
+
+	output = string(cc.transformString(data))
+	return
 }
 
 func (cc *CFmxCompat) transformString(inBytes []byte) []byte {
