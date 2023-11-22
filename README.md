@@ -1,4 +1,5 @@
 # gocfmx
+### #Go CFMX_COMPACT
 **CFMX_COMPACT** algorithm with an encrypt function to convert to **hexadecimal** (_Hex_)
 
 
